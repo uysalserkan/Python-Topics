@@ -1,0 +1,22 @@
+from DoublyLinkedList import *
+myDoublyList = DoublyLinkedList()
+myDoublyList.append("S")
+myDoublyList.append("E")
+myDoublyList.append("R")
+myDoublyList.append("M")
+myDoublyList.prepend("B")
+myDoublyList.prepend("S")
+myDoublyList.append("A")
+
+myDoublyList.printDoublyList()
+# myDoublyList.addAfter("R", "K")
+# myDoublyList.addAfter("K", "A")
+# myDoublyList.addBefore("M", "N")
+
+print("_________________________")
+myDoublyList.printDoublyList()
+# myDoublyList.deleteNode("B")
+# myDoublyList.deleteNode("S")
+myDoublyList.dublicateRemove()
+print("_________________________")
+myDoublyList.printDoublyList()
