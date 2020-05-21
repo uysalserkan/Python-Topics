@@ -11,7 +11,8 @@ class CustomStack:
         self.items.append(value)
 
     def pop(self):
-        return self.items.pop()
+        if not self.isEmpty():
+            return self.items.pop()
 
     def getStack(self):
         return self.items
@@ -21,7 +22,20 @@ class CustomStack:
 
     def peek(self):
         if not self.isEmpty():
-            return self.items[-1]
+            return self.items[-1].data  # data is optimization for Binary Tree
+
+    def __len__(self):
+        return self.size()
+
+    def size(self):
+        return len(self.items)
+
+    def __str__(self):
+        s = ""
+        for i in range(self(self.items)):
+            # data is optimization for Binary Tree
+            s += str[self.items[i].data] + "->"
+        return s
 
 
 def main():
