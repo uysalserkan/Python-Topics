@@ -8,7 +8,7 @@ import pandas as pd
 statusInfo = "YERDE"
 statusColor = 'r'
 customLegend = []
-df = pd.read_csv('SimpleRadar.csv', index_col=0)
+df = pd.read_csv('exponential.csv', index_col=0)
 y = np.linspace(start=0, stop=len(df), num=len(df), dtype=np.int32)
 x = df['ATTITUDE']
 # print(y)
@@ -22,14 +22,9 @@ x = df['ATTITUDE']
 # print(np.max(df.values))
 
 
-
-
 fig = plt.figure(figsize=(10, 6))
+
 ax = fig.add_subplot(111)
-
-
-
-
 
 
 YerHava = ax.text(s='updating..', x=0, y=400)
@@ -58,6 +53,6 @@ def updateFigure(num, x, y, line):
 
 
 anim = animation.FuncAnimation(fig, updateFigure, frames=range(len(x)),  fargs=[
-    x, y, line], interval=5, blit=True)
+    x, y, line], interval=15)
 # anim.save('animsave.gif')
 plt.show()

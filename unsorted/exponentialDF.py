@@ -12,7 +12,7 @@ test = 0
 j = 0
 for i in range(T_SIZE):
     if i < 380:
-        test = test + np.power(i, 1.5)
+        test = test + int(np.power(i, 1.5))
         attitude.append(test)
         continue
     elif i > 380 and i < 660:
@@ -20,7 +20,10 @@ for i in range(T_SIZE):
         # j = i
         continue
     else:
-        test = test - np.power(j, 1.45)
+        if (test - int(np.power(j, 1.45)) > 0):
+            test = test - int(np.power(j, 1.45))
+        else:
+            test = 0
         attitude.append(test)
         j = j+1
         continue
