@@ -3,7 +3,7 @@ from numpy import arange, sin, pi
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import tkinter as Tk
-from tkinter import ttk, BOTH, Label, Button, Frame
+from tkinter import ttk, BOTH
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -14,47 +14,6 @@ import random
 
 
 plt.rcParams['toolbar'] = 'toolbar2'
-
-
-def createPlot():
-    fig, ax = plt.subplots()
-    ax.set_ylabel('Value')
-    ax.set_xlabel('Time (ms)')
-
-    return fig, ax
-
-
-def forgetCanvas(root, canvas):
-    try:
-        canvas.get_tk_widget().pack_forget()
-    except:
-        pass
-
-
-def AddLabel(root, canvas):
-    # label1 = Label(master, text="my first attempt")
-    # label1.pack()
-    GraphFrame = Frame(root)
-    try:
-        print("MyCanvas pack info: "+canvas.pack_info())
-        canvas.get_tk_widget().pack_forget()
-    except:
-        pass
-    finally:
-        def clearArea():
-            GraphFrame.pack_forget()
-
-        fig, ax = createPlot()
-        scope = Scope(ax)
-        canvas = FigureCanvasTkAgg(fig, master=GraphFrame)
-
-        canvas.get_tk_widget().pack()
-        ani = animation.FuncAnimation(fig, scope.update, emitter, interval=5,
-                                      blit=True)
-        deleteButton = Button(GraphFrame, text="Del this canvas",
-                              command=clearArea).pack()
-        GraphFrame.pack()
-        Tk.mainloop()
 
 
 class Scope(object):
@@ -96,21 +55,27 @@ def emitter(p=0.03):
 
 np.random.seed()
 
+
+fig, ax = plt.subplots()
+ax.set_ylabel('Value')
+ax.set_xlabel('Time (ms)')
+scope = Scope(ax)
+
+
 root = Tk.Tk()
 
 
 # label = Tk.Label(root, text="SHM Simulation").grid(
-
 #     column=0, row=0,padx=3)
-
-
 ttk.Button(root, text="EXIT", command=root.quit, width=105).pack()
+canvas = FigureCanvasTkAgg(fig, master=root)
+canvas.get_tk_widget().pack()
 
-myCanvas = ""
-button2 = Button(root, text="Add Label",
-                 command=lambda: AddLabel(root, myCanvas)).pack()
+ani = animation.FuncAnimation(fig, scope.update, emitter, interval=5,
+                              blit=True)
 
-root.mainloop()
+
+Tk.mainloop()
 
 # pass a generator in "emitter" to produce data for the update func
 

@@ -35,10 +35,10 @@ colors = plt.get_cmap('Dark2_r', 10)
 for i in range(len(T)):
     x = np.linspace(0, 1, 100)
     y = fermi(x, 0.5, T[i])
-    if i % 2 == 0:
-        varStr.set_text("EVEN")
-    else:
-        varStr.set_text("ODD")
+    # if i % 2 == 0:
+    #     varStr.set_text("EVEN")
+    # else:
+    #     varStr.set_text("ODD")
     ax.plot(x, y, color=colors(i), linewidth=1.5, label=str(varStr))
 
 
@@ -54,10 +54,6 @@ for i in range(len(T)):
 
 # Add text annotation and create variable reference
 temp = ax.text(s='Test', x=0.7, y=1)
-
-status = [Line2D([0], [0], marker='o', color='w',
-                label=varStr.get_text(), markerfacecolor=colors(i), markersize=12)]
-ax.legend(handles=status, loc='best')
 
 
 def animate(i):
