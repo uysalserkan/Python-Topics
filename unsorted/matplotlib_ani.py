@@ -5,6 +5,7 @@ import numpy as np
 from matplotlib import style
 
 from matplotlib.widgets import Slider
+
 """ 
     plt.rcParams['toolbar'] = 'None'  # Disable toolbar
     style.use('fivethirtyeight')
@@ -79,7 +80,7 @@ from matplotlib.widgets import Slider
  """
 
 # %% Section 4
-plt.rcParams['toolbar'] = 'toolbar2'
+plt.rcParams["toolbar"] = "toolbar2"
 
 
 class Scope(object):
@@ -91,7 +92,7 @@ class Scope(object):
         self.ydata = [0]
         self.line = Line2D(self.tdata, self.ydata)
         self.ax.add_line(self.line)
-        self.ax.set_ylim(-.1, 1.1)
+        self.ax.set_ylim(-0.1, 1.1)
         self.ax.set_xlim(0, self.maxt)
         # self.ann = plt.annotate("", (0, 0))
 
@@ -115,15 +116,15 @@ class Scope(object):
         self.ydata.append(y)
         self.line.set_data(self.tdata, self.ydata)
 
-        return self.line,
+        return (self.line,)
 
 
 def emitter(p=0.03):
-    'return a random value with probability p, else 0'
+    "return a random value with probability p, else 0"
     while True:
         v = np.random.rand(1)
         if v > p:
-            yield 0.
+            yield 0.0
         else:
             yield np.random.rand(1)
 
@@ -136,13 +137,12 @@ fig, ax = plt.subplots()
 scope = Scope(ax)
 
 
-axamp = plt.axes([0.25, .03, 0.50, 0.02])
-initial_amp = .5
+axamp = plt.axes([0.25, 0.03, 0.50, 0.02])
+initial_amp = 0.5
 # Slider
-samp = Slider(axamp, 'Amp', 0, 1, valinit=initial_amp)
+samp = Slider(axamp, "Amp", 0, 1, valinit=initial_amp)
 
 # pass a generator in "emitter" to produce data for the update func
-ani = animation.FuncAnimation(fig, scope.update, emitter, interval=5,
-                              blit=False)
+ani = animation.FuncAnimation(fig, scope.update, emitter, interval=5)
 
 plt.show()

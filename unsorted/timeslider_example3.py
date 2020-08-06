@@ -19,12 +19,15 @@ axamp = plt.axes([0.25, 0.15, 0.65, 0.03], facecolor=axcolor)
 sfreq = Slider(axfreq, 'Freq', 0.1, 30.0, valinit=f0, valstep=delta_f)
 samp = Slider(axamp, 'Amp', 0.1, 10.0, valinit=a0)
 
+props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
+var1_text = ax.text(0.1, 0.1, "TEST", bbox=props)
 
 
 def update(val):
     amp = samp.val
     freq = sfreq.val
     l.set_ydata(amp*np.sin(2*np.pi*freq*t))
+    var1_text.set_text(str(int(val)))
     fig.canvas.draw_idle()
 
 
