@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import numpy as np
 from matplotlib import style
-
 from matplotlib.widgets import Slider
 
 """ 
@@ -92,8 +91,8 @@ class Scope(object):
         self.ydata = [0]
         self.line = Line2D(self.tdata, self.ydata)
         self.ax.add_line(self.line)
-        self.ax.set_ylim(-0.1, 1.1)
-        self.ax.set_xlim(0, self.maxt)
+        self.ax.set_ylim(-0.1, 300)
+        self.ax.set_xlim(0, 300)
         # self.ann = plt.annotate("", (0, 0))
 
     def update(self, y):
@@ -101,7 +100,7 @@ class Scope(object):
         if lastt > self.tdata[0] + self.maxt:  # reset the arrays
             self.tdata = [self.tdata[-1]]
             self.ydata = [self.ydata[-1]]
-            self.ax.set_xlim(self.tdata[0], self.tdata[0] + self.maxt)
+            self.ax.set_xlim(self.tdata[0], self.tdata[0] + 300 + self.maxt)
             self.ax.figure.canvas.draw()
 
         t = self.tdata[-1] + self.dt
@@ -135,6 +134,10 @@ np.random.seed(19680801)
 
 fig, ax = plt.subplots()
 scope = Scope(ax)
+
+img = plt.imread("logo.png")
+
+plt.imshow(img)
 
 
 axamp = plt.axes([0.25, 0.03, 0.50, 0.02])
