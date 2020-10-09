@@ -1,7 +1,7 @@
 # Python Projects
 
-## [Password Generator][/password_generator.py]
-[!Screenshot](/Screenshots/password_generator.gif)
+## [Password Generator](/password_generator.py)
+![Screenshot](/Screenshots/password_generator.gif)
 
 
 
