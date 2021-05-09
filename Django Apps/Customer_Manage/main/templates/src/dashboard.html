@@ -1,0 +1,60 @@
+{% extends 'src/main.html' %}
+<!-- boşluk-->
+{% block content %}
+
+{% include 'src/includes/status.html' %}
+
+<div class="columns">
+	<div class="column">
+		<div class="card">
+			<header class="card-header has-background-white-bis">
+				<p class="card-header-title is-centered">
+					Customer
+				</p>
+			</header>
+			<div class="card-content">
+				<div class="content">
+					<table class="table">
+						<tr>
+							<th></th>
+							<th>Customer</th>
+							<th>Order</th>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<footer class="card-footer">
+				<a href="#" class="card-footer-item">Create a Customer</a>
+			</footer>
+		</div>
+	</div>
+
+	<div class="column is-three-fifths">
+		<div class="card">
+			<header class="card-header has-background-white-bis	">
+				<p class="card-header-title is-centered">
+					Last 5 Orders
+				</p>
+
+			</header>
+			<div class="card-content">
+				<div class="content">
+					<table class="table">
+						<tr>
+							<th>Product</th>
+							<th>Date Ordered</th>
+							<th>Status</th>
+							<th>Update</th>
+							<th>Remove</th>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<footer class="card-footer">
+				<a href="#" class="card-footer-item">Create a Order</a>
+			</footer>
+		</div>
+	</div>
+
+</div>
+{% endblock content %}

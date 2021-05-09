@@ -5,4 +5,19 @@ from django.http import HttpResponse
 
 
 def homepage(request):
-    return HttpResponse("Project started.")
+    return render(
+        request=request,
+        template_name="src/dashboard.html"
+    )
+
+
+def customer(request):
+    return render(
+        request, "src/customer.html"
+    )
+
+
+def product(request):
+    return render(
+        request, "src/product.html"
+    )
