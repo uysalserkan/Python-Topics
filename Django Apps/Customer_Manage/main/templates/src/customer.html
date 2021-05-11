@@ -2,90 +2,103 @@
 <!-- boşluk-->
 {% block content %}
 <div class="columns">
-    <!--card başlangıcı-->
-    <div class="column is-one-third">
-        <div class="card">
-            <header class="card-header has-background-grey-lighter">
-                <p class="card-header-title is-centered">Customer</p>
-            </header>
-            <div class="card-content has-background-white-bis">
-                <div class="content">
-                    <div class="rows">
-                        <div class="buttons is-centered">
-                            <div class="row">
-                                <button class="button is-link is-active">
-                                    Update Customer
-                                </button>
-                            </div>
-                            <div class="row">
-                                <button class="button is-danger is-active">
-                                    Delete Customer
-                                </button>
-                            </div>
-                            <br />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--card bitişi-->
-    <!--card başlangıcı-->
-    <div class="column is-one-third">
-        <div class="card">
-            <header class="card-header has-background-grey-lighter">
-                <p class="card-header-title is-centered">Contact Information</p>
-            </header>
-            <div class="card-content has-background-white-bis">
-                <div class="content">
-                    <span>E mail:</span>
-                    <br />
-                    <span>Phone:</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--card bitişi-->
-    <!--card başlangıcı-->
-    <div class="column is-one-third">
-        <div class="card">
-            <header class="card-header has-background-grey-lighter">
-                <p class="card-header-title is-centered">Total Order</p>
-            </header>
-            <div class="card-content has-background-white-bis">
-                <div class="content">
-                    <span>Infinity</span>
-                </div>
-            </div>
-        </div>
-    </div>
+	<!--card başlangıcı-->
+	<div class="column is-one-third">
+		<div class="card">
+			<header class="card-header has-background-grey-lighter">
+				<p class="card-header-title is-centered">Customer</p>
+			</header>
+			<div class="card-content has-background-white-bis">
+				<div class="content">
+					<div class="rows">
+						<div class="buttons is-centered">
+							<div class="row">
+								<button class="button is-link is-active">
+									Update Customer
+								</button>
+							</div>
+							<div class="row">
+								<button class="button is-danger is-active">
+									Delete Customer
+								</button>
+							</div>
+							<br />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--card bitişi-->
+	<!--card başlangıcı-->
+	<div class="column is-one-third">
+		<div class="card">
+			<header class="card-header has-background-grey-lighter">
+				<p class="card-header-title is-centered">Contact Information</p>
+			</header>
+			<div class="card-content has-background-white-bis">
+				<div class="content has-text-centered">
+					<span><b>E mail:</b> </span
+					><a href="mailto:{% url 'customer' customer.email%}"
+						>{{customer.email}}</a
+					>
+					<br />
+					<span><b>Phone:</b> </span>{{customer.phone}}
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--card bitişi-->
+	<!--card başlangıcı-->
+	<div class="column is-one-third">
+		<div class="card has-text-centered">
+			<header class="card-header has-background-grey-lighter">
+				<p class="card-header-title is-centered">Total Order</p>
+			</header>
+			<div class="card-content has-background-white-bis">
+				<div class="content is-size-3">
+					<span>{{orders_count}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <section class="hero is-small is-success">
-    <div class="hero-body">
-        <p class="title">
-            <!-- Search About Customer or Order -->
-        </p>
-        <p class="subtitle">
-            <button class="button is-primary is-light">Search</button>
-        </p>
-    </div>
+	<div class="hero-body">
+		<p class="title">
+			<!-- Search About Customer or Order -->
+		</p>
+		<p class="subtitle">
+			<button class="button is-primary is-light">Search</button>
+		</p>
+	</div>
 </section>
 <div class="card">
-    <div class="card-content">
-        <div class="content">
-            <table class="table">
-                <tr>
-                    <th>Product</th>
-                    <th>Category</th>
-                    <th>Date Ordered</th>
-                    <th>Status</th>
-                    <th>Update</th>
-                    <th>Delete</th>
-                </tr>
-            </table>
-        </div>
-    </div>
+	<div class="card-content">
+		<div class="content">
+			<table class="table">
+				<tr>
+					<th>Product</th>
+					<th>Category</th>
+					<th>Date Ordered</th>
+					<th>Status</th>
+					<th>Update</th>
+					<th>Delete</th>
+				</tr>
+				{% for order in orders %}
+				<tr>
+					<td>{{order.product}}</td>
+					<td>{{order.product.category}}</td>
+					<td>{{order.date_created}}</td>
+					<td>{{order.status}}</td>
+					<td><button class="button is-info">Update</button></td>
+					<td><button class="button is-danger">Delete</button></td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
 </div>
 
 {% endblock %}

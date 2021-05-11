@@ -1,25 +1,36 @@
 {% extends 'src/main.html' %}
 <!-- boşluk-->
-{% block content %}
-
-{% include 'src/includes/status.html' %}
+{% block content %} {% include 'src/includes/status.html' %}
 
 <div class="columns">
 	<div class="column">
 		<div class="card">
 			<header class="card-header has-background-white-bis">
-				<p class="card-header-title is-centered">
-					Customer
-				</p>
+				<p class="card-header-title is-centered">Customer</p>
 			</header>
 			<div class="card-content">
 				<div class="content">
 					<table class="table">
 						<tr>
-							<th></th>
 							<th>Customer</th>
-							<th>Order</th>
+							<th>Phone</th>
+							<th>Mail</th>
 						</tr>
+						{% for customer in customers %}
+						<tr>
+							<td>
+								<a href="{% url 'customer' customer.id %}">
+									<!--buradaki 'customer' urls de bulunan name='customer'-->
+									{{customer.name}}
+								</a>
+							</td>
+							<td>{{customer.phone}}</td>
+							<td>
+								<a href="mailto:{% url 'customer' customer.email %}"
+									target="_blank">{{customer.email}}</a>
+							</td>
+						</tr>
+						{% endfor %}
 					</table>
 				</div>
 			</div>
@@ -31,11 +42,8 @@
 
 	<div class="column is-three-fifths">
 		<div class="card">
-			<header class="card-header has-background-white-bis	">
-				<p class="card-header-title is-centered">
-					Last 5 Orders
-				</p>
-
+			<header class="card-header has-background-white-bis">
+				<p class="card-header-title is-centered">Last 5 Orders</p>
 			</header>
 			<div class="card-content">
 				<div class="content">
@@ -47,6 +55,23 @@
 							<th>Update</th>
 							<th>Remove</th>
 						</tr>
+						{% for order in orders %}
+						<tr>
+							<td>{{order.product}}</td>
+							<td>{{order.date_created}}</td>
+							<td>{{order.status}}</td>
+							<td>
+								<button class="button is-info is-inverted">
+									Update
+								</button>
+							</td>
+							<td>
+								<button class="button is-danger is-inverted">
+									Remove
+								</button>
+							</td>
+						</tr>
+						{% endfor %}
 					</table>
 				</div>
 			</div>
@@ -55,6 +80,5 @@
 			</footer>
 		</div>
 	</div>
-
 </div>
 {% endblock content %}
