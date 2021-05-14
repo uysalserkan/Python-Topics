@@ -15,10 +15,12 @@
 	</div>
 
 	<div id="navbarExampleTransparentExample" class="navbar-menu">
+		{% if request.user.is_staff %}
 		<div class="navbar-start">
 			<a class="navbar-item" href="{% url 'home' %}"> Home </a>
 			<a class="navbar-item" href="{% url 'product' %}"> Product </a>
 		</div>
+		{% endif %}
 
 		<div class="navbar-end">
 			<div class="navbar-item has-dropdown is-hoverable">
