@@ -1,8 +1,10 @@
+from django.db.models import fields
 from main.models import Product
 from main.models import Order
 from main.models import Customer
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.forms import inlineformset_factory
 from .models import Order
 from .forms import OrderForm
 # from django.http import HttpResponse
@@ -57,19 +59,26 @@ def product(request):
     )
 
 
-def createOrder(request):
-    form = OrderForm()
+def createOrder(request, customer_id):
+
+    OrderFormSet = inlineformset_factory(
+        Customer, Order, fields=['product', 'status'], extra=10,
+    )
+    customer = Customer.objects.get(id=customer_id)
+
+    # form_set ile Customer ile Order sınıflarını bir ele aldıktan sonra yukarıdaki elde ettiğimiz spesifik customer bilgilerini elde ederiz.
+    formset = OrderFormSet(queryset=Order.objects.none(), instance=customer)
 
     if request.method == 'POST':
-        form = OrderForm(request.POST)
-        if form.is_valid:
-            form.save()
+        formset = OrderFormSet(request.POST, instance=customer)
+        if formset.is_valid():
+            formset.save()
             return redirect('/')
 
     return render(
         request=request,
         template_name="src/order_form.html",
-        context={'form': form},
+        context={'form': formset, 'customer_name': customer.name},
     )
 
 

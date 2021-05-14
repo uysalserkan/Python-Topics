@@ -17,49 +17,51 @@
 									Update Customer
 								</button>
 							</div>
-							<div class="row">
-								<button class="button is-danger is-active">
-									Delete Customer
-								</button>
-							</div>
-							<br />
+							<a href="{% url 'create-order' customer.id %}">
+								<div class="row">
+									<button class="button is-primary is-active">
+										Add Product
+									</button>
+							</a>
 						</div>
+						<br />
 					</div>
+					<p></p>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!--card bitişi-->
-	<!--card başlangıcı-->
-	<div class="column is-one-third">
-		<div class="card">
-			<header class="card-header has-background-grey-lighter">
-				<p class="card-header-title is-centered">Contact Information</p>
-			</header>
-			<div class="card-content has-background-white-bis">
-				<div class="content has-text-centered">
-					<span><b>E mail:</b> </span><a
-						href="mailto:{% url 'customer' customer.email%}">{{customer.email}}</a>
-					<br />
-					<span><b>Phone:</b> </span>{{customer.phone}}
-				</div>
+</div>
+<!--card bitişi-->
+<!--card başlangıcı-->
+<div class="column is-one-third">
+	<div class="card">
+		<header class="card-header has-background-grey-lighter">
+			<p class="card-header-title is-centered">Contact Information</p>
+		</header>
+		<div class="card-content has-background-white-bis">
+			<div class="content has-text-centered">
+				<p><b>E mail:</b> <a href="mailto:{% url 'customer' customer.email%}">{{customer.email}}</a></p>
+
+				<p><b>Phone:</b> {{customer.phone}}</p>
 			</div>
 		</div>
 	</div>
-	<!--card bitişi-->
-	<!--card başlangıcı-->
-	<div class="column is-one-third">
-		<div class="card has-text-centered">
-			<header class="card-header has-background-grey-lighter">
-				<p class="card-header-title is-centered">Total Order</p>
-			</header>
-			<div class="card-content has-background-white-bis">
-				<div class="content is-size-3">
-					<span>{{orders_count}}</span>
-				</div>
+</div>
+<!--card bitişi-->
+<!--card başlangıcı-->
+<div class="column is-one-third">
+	<div class="card has-text-centered">
+		<header class="card-header has-background-grey-lighter">
+			<p class="card-header-title is-centered">Total Order</p>
+		</header>
+		<div class="card-content has-background-white-bis" style="padding-bottom: 40px;">
+			<div class="content is-size-3">
+				<span>{{orders_count}}</span>
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 
 <section class="hero is-small is-success">

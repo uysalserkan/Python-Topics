@@ -5,17 +5,26 @@
 {% block content %}
 
 
-<form method="POST" action="">
-    {% csrf_token %}
-    <!--sending data securely-->
-    <!-- <input type="submit" name="submit"> -->
-    <div class="tile is-parent has-text-centered">
-        <div class="tile is-child box">
-            <p class="title">Three</p>
-            <div style="padding-bottom: 25px;">{{form}}</div>
-            <button class="button is-info" type="submit">Save</button>
+<!--sending data securely-->
+<!-- <input type="submit" name="submit"> -->
+<div class="tile is-parent has-text-centered">
+    <div class="tile is-child box">
+        <p class="title">Add Product at {{customer_name}}</p>
+        <div style="padding-bottom: 25px;">
+            <form method="POST" action="">
+                <!--şu an formset olarak gönderiyoruz form yerine-->
+                {% csrf_token %}
+                {{form.management_form}}
+                {% for form_in_formset in form %}
+                <div class="card-context" style="padding-bottom: 15px;">
+                    {{form_in_formset}}
+                </div>
+                {% endfor %}
+
+                <button class="button is-info" type="submit">Save</button>
+            </form>
         </div>
     </div>
-</form>
+</div>
 
 {% endblock content %}
