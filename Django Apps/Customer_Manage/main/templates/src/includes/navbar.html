@@ -21,11 +21,37 @@
 		</div>
 
 		<div class="navbar-end">
+			<div class="navbar-item has-dropdown is-hoverable">
+				{% if request.user.is_authenticated %}
+				<a class="navbar-link"> {{request.user}} </a>
+				<div class="navbar-dropdown">
+					<a href="{% url 'logout' %}" class="navbar-item"> Çıkış </a>
+					{% else %}
+					<a
+						href="{% url 'login' %}"
+						target="_blank"
+						class="navbar-item"
+					>
+						Giriş
+					</a>
+
+					<a
+						href="{% url 'register' %}"
+						target="_blank"
+						class="navbar-item"
+					>
+						Kayıt
+					</a>
+					<hr class="navbar-divider" />
+
+					<a href="/admin" target="_blank" class="navbar-item">
+						Admin
+					</a>
+				</div>
+				{%endif%}
+			</div>
 			<div class="navbar-item">
 				<div class="field is-grouped">
-					<a class="navbar-item" href="/admin" target="_blank">
-						Admin</a
-					>
 					<p class="control">
 						<a
 							class="button is-primary is-focused"

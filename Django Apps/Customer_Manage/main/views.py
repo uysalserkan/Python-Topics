@@ -5,14 +5,78 @@ from main.models import Customer
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.forms import inlineformset_factory
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate
+from django.contrib.auth import login
+from django.contrib.auth import logout
+from django.contrib import messages
 from .models import Order
 from .forms import OrderForm
+from .forms import CreateUserForm
 from .filters import OrderFilter
 # from django.http import HttpResponse
 
 # Create your views here.
 
 
+def logoutUser(request):
+    logout(request=request)
+    return redirect("/")
+
+
+def loginUser(request):
+    if request.user.is_authenticated:
+        return redirect('/')
+    else:
+        if request.method == 'POST':
+            usr_name = request.POST.get('username')
+            usr_pass = request.POST.get('password')
+
+            user = authenticate(
+                request=request,
+                username=usr_name,
+                password=usr_pass
+            )
+
+            if user is not None:
+                login(request, user)
+                return redirect('/')
+            else:
+                messages.error(request, "Username / Password is invalid.")
+
+        return render(
+            request=request,
+            template_name="src/login.html",
+            context={},
+        )
+
+
+def register(request):
+    if request.user.is_authenticated:
+        return redirect('/')
+
+    else:
+        form = CreateUserForm()
+
+        if request.method == 'POST':
+            form = CreateUserForm(request.POST)
+            if form.is_valid():
+                form.save()
+                usr_name = form.cleaned_data.get("username")
+                messages.success(request, usr_name + " Account created!")
+                return redirect('login')
+
+        return render(
+            request=request,
+            template_name="src/register.html",
+            context={
+                "form": form,
+            }
+        )
+
+
+# @login_required(login_url="login")
 def homepage(request):
     orders = Order.objects.all()
     customers = Customer.objects.all()
@@ -36,6 +100,7 @@ def homepage(request):
     )
 
 
+@login_required(login_url="login")
 def customer(request, cust_id):
     customer = Customer.objects.get(id=cust_id)
     orders = customer.order_set.all()
@@ -43,7 +108,7 @@ def customer(request, cust_id):
 
     filters = OrderFilter(request.GET, queryset=orders)
 
-    orders = filters.qs    
+    orders = filters.qs
 
     return render(
         request=request,
@@ -57,6 +122,7 @@ def customer(request, cust_id):
     )
 
 
+@login_required(login_url="login")
 def product(request):
     products = Product.objects.all()
     return render(
@@ -66,6 +132,7 @@ def product(request):
     )
 
 
+@login_required(login_url="login")
 def createOrder(request, customer_id):
 
     OrderFormSet = inlineformset_factory(
@@ -89,6 +156,7 @@ def createOrder(request, customer_id):
     )
 
 
+@login_required(login_url="login")
 def updateOrder(request, order_id):
     order = Order.objects.get(id=order_id)
     form = OrderForm(instance=order)
@@ -106,6 +174,7 @@ def updateOrder(request, order_id):
     )
 
 
+@login_required(login_url="login")
 def deleteOrder(request, order_id):
     order = Order.objects.get(id=order_id)
 
