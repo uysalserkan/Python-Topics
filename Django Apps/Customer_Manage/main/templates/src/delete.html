@@ -1,0 +1,25 @@
+{% extends 'src/main.html' %}
+<!--boşluk-->
+{% load static %}
+
+<!--boşluk-->
+
+{% block content %}
+
+<div class="box is-centered">
+
+    <p class="has-text-centered	is-size-4" style="padding-bottom: 15px;">Are you sure you want to delete <b>{{order}}</b>?</p>
+    <form method="POST" action="{% url 'delete-order' order.id %}">
+        {% csrf_token %}
+        <!--buradaki order yukarıdaki order oluyor, o ise views den yolladığımız order-->
+        <div class="buttons is-centered">
+            <a href="{% url 'home' %}">
+                <button class="button is-success" type="button">Cancel</button>
+            </a>
+            <button class="button is-danger" type="submit" name="Delete">Delete</button>
+        </div>
+        <!-- <input type="submit" , name="Confirm"> -->
+
+    </form>
+</div>
+{% endblock content %}

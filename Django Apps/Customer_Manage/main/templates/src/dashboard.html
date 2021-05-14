@@ -61,14 +61,18 @@
 							<td>{{order.date_created}}</td>
 							<td>{{order.status}}</td>
 							<td>
-								<button class="button is-info is-inverted">
-									Update
-								</button>
+								<a href="{% url 'update-order' order.id %}">
+									<button class="button is-info is-inverted">
+										Update
+									</button>
+								</a>
 							</td>
 							<td>
-								<button class="button is-danger is-inverted">
-									Remove
-								</button>
+								<a href="{% url 'delete-order' order.id %}">
+									<button class="button is-danger is-inverted">
+										Remove
+									</button>
+								</a>
 							</td>
 						</tr>
 						{% endfor %}
@@ -76,7 +80,7 @@
 				</div>
 			</div>
 			<footer class="card-footer">
-				<a href="#" class="card-footer-item">Create a Order</a>
+				<a href="{% url 'create-order' %}" class="card-footer-item">Create a Order</a>
 			</footer>
 		</div>
 	</div>
