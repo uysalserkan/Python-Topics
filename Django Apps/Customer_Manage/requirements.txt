@@ -1,0 +1,4 @@
+django~=3.0
+django-filter
+pillow
+psycopg2-binary>=2.8
