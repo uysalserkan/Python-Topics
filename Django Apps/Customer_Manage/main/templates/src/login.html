@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Login</title>
-		<link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"
-		/>
-	</head>
-	<body>
-		<form method="POST" action="">
-			{% csrf_token %}
-			<section class="section px-2">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Login</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css" />
+</head>
+
+<body>
+	<form method="POST" action="">
+		{% csrf_token %}
+		<section class="hero px-2 is-info is-fullheight">
+			<div class="hero-body">
 				<div class="container">
 					<div class="columns is-centered">
 						<div class="card">
 							<div class="card-header is-centered">
 								<article class="message is-warning">
-									<div
-										class="message-header has-text-centered"
-									>
+									<div class="message-header has-text-centered">
 										{% for message in messages %}
 										<p id="messages">{{message}}</p>
 										{% endfor %}
@@ -28,41 +26,30 @@
 								</article>
 							</div>
 							<div class="card-content">
-								<input
-									class="input"
-									type="username"
-									name="username"
-									placeholder="Password"
-									required
-								/>
-								<input
-									class="input"
-									type="password"
-									name="password"
-									placeholder="Password"
-									required
-								/>
+								<input class="input mb-3" type="username" name="username" placeholder="Username"
+									required />
+								<input class="input mb-3" type="password" name="password" placeholder="Password"
+									required />
+								<button class="button is-info" type="submit">
+									Login
+								</button>
 							</div>
 							<footer class="card-footer">
 								<p class="card-footer-item">
-									<button
-										class="button is-info"
-										type="submit"
-									>
-										Login
-									</button>
+									Don't have an account?
+									<a href="{% url 'register' %}" class="ml-2" style="color: darkblue;">Sign Up</a>
 								</p>
 								<p class="card-footer-item">
-									Don't have an account?
-									<a href="{% url 'register' %}" class="ml-2"
-										>Sign Up</a
-									>
+									Do you forget your password?
+									<a href="{% url 'reset_password' %}" class="ml-2" style="color: darkblue;">Reset</a>
 								</p>
 							</footer>
 						</div>
 					</div>
 				</div>
-			</section>
-		</form>
-	</body>
+			</div>
+		</section>
+	</form>
+</body>
+
 </html>

@@ -132,3 +132,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# SMTP Configuration
+# Kendi email sunucunuz olursa daha güvenli bir sistem oluşabilir, gmail vb. gibi sitelerdeki adreslerinizi de bağlayabilirsiniz.
+"""
+EMAIL_BACKEND = ''
+EMAIL_HOST = ''
+EMAIL_PORT = ''
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+"""
