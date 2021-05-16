@@ -15,6 +15,7 @@ from django.contrib import messages
 from .models import Order
 from .forms import OrderForm
 from .forms import CreateUserForm
+from .forms import CustomerForm
 from .filters import OrderFilter
 from .decorators import unauth_user
 from .decorators import admin_only
@@ -220,5 +221,30 @@ def userPage(request):
             'total_orders': total_orders,
             'delivered': delivered,
             'pending': pending,
+        }
+    )
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_groups=['customer'])
+def accountSettings(request):
+    usr = request.user.customer
+    form = CustomerForm(instance=usr)
+    print("IT form getirildi.. ****\n")
+
+    if request.method == 'POST':
+        print("IT IS POST ****\n")
+
+        form = CustomerForm(request.POST, request.FILES, instance=usr)
+        if form.is_valid():
+            print("IT IS VALID ****\n")
+            form.save()
+            print("FORM SAVEEDD ****\n")
+
+    return render(
+        request=request,
+        template_name='src/customer_settings.html',
+        context={
+            'form': form,
         }
     )

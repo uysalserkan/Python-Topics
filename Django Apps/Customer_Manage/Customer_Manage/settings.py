@@ -126,6 +126,8 @@ STATICFILES_DIR = [
     os.path.join(BASE_DIR, 'static')
 ]
 
+# dışarıdan yüklenen dosyalar bu klasörde depolanacak.
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

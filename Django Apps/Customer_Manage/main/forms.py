@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Order
+from .models import Customer, Order
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
@@ -13,6 +13,15 @@ class OrderForm(ModelForm):
 
 
 class CreateUserForm(UserCreationForm):
+    """ Kullanıcı kayıt olurken oluşturulan ekran"""
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+
+
+class CustomerForm(ModelForm):
+    """ Burada user profile picture için ayarlamalar yapılıyor."""
+    class Meta:
+        model = Customer
+        fields = '__all__'
+        exclude = ['user']

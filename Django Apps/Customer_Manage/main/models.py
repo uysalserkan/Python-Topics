@@ -9,7 +9,9 @@ class Customer(models.Model):
     Burada standart bir kullanıcının modeilini oluşturacağız.
     """
 
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    profile_pic = models.ImageField(null=True, default="def.jpeg", blank=True)
+    user = models.OneToOneField(
+        User, null=True, blank=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     email = models.EmailField(max_length=200, null=True)
     phone = models.CharField(max_length=200, null=True)

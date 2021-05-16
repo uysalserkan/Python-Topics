@@ -33,6 +33,11 @@
 					</a>
 
 					<hr class="navbar-divider" />
+					{% else %}
+					<a href="{% url 'user_settings' %}" class="navbar-item">
+						Settings
+					</a>
+					<hr class="navbar-divider" />
 
 					{% endif %}
 					<a href="{% url 'logout' %}" class="navbar-item"> Çıkış </a>
