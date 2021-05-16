@@ -8,3 +8,7 @@
 
 https://user-images.githubusercontent.com/24881389/118395470-3f91e980-b653-11eb-8e6a-0bc0452b6214.mp4
 
+```bash
+docker pull uysalserkan/customer-order-app
+docker run --name mainapp -d -p 8000:8000 uysalserkan/customer-order-app
+```
