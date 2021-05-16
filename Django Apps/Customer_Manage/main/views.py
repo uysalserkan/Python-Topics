@@ -65,13 +65,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             usr_name = form.cleaned_data.get("username")
-            group = Group.objects.get(name="customer")
-
-            user.groups.add(group)
-
-            Customer.objects.create(
-                user=user,
-            )
+            
 
             messages.success(request, usr_name + " Account created!")
             return redirect('login')
