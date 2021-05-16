@@ -68,6 +68,10 @@ def register(request):
 
             user.groups.add(group)
 
+            Customer.objects.create(
+                user=user,
+            )
+
             messages.success(request, usr_name + " Account created!")
             return redirect('login')
 
@@ -200,9 +204,21 @@ def deleteOrder(request, order_id):
     )
 
 
+@login_required(login_url='login')
+@allowed_users(allowed_groups=['customer'])
 def userPage(request):
+    orders = request.user.customer.order_set.all()
+    total_orders = orders.count()
+    delivered = orders.filter(status='DELIVERED').count()
+    pending = orders.filter(status='PENDING').count()
+
     return render(
         request=request,
         template_name='src/user.html',
-        context={}
+        context={
+            'orders': orders,
+            'total_orders': total_orders,
+            'delivered': delivered,
+            'pending': pending,
+        }
     )

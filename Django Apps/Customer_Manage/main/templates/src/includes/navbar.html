@@ -27,6 +27,14 @@
 				{% if request.user.is_authenticated %}
 				<a class="navbar-link"> {{request.user}} </a>
 				<div class="navbar-dropdown">
+					{% if request.user.is_staff %}
+					<a href="/admin" class="navbar-item" target="_blank">
+						Admin
+					</a>
+
+					<hr class="navbar-divider" />
+
+					{% endif %}
 					<a href="{% url 'logout' %}" class="navbar-item"> Çıkış </a>
 					{% else %}
 					<a

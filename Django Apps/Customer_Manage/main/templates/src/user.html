@@ -3,6 +3,27 @@
 {% block content %}
 <!--boşluk-->
 {% include 'src/includes/status.html' %}
-<h3>USER Page</h3>
+<div class="card">
+	<div class="card-content">
+		<div class="content">
+			<table class="table">
+				<tr>
+					<th>Product</th>
+					<th>Category</th>
+					<th>Date Ordered</th>
+					<th>Status</th>
+				</tr>
+				{% for order in orders %}
+				<tr>
+					<td>{{order.product}}</td>
+					<td>{{order.product.category}}</td>
+					<td>{{order.date_created}}</td>
+					<td>{{order.status}}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
 <!--boşluk-->
 {% endblock content %}
