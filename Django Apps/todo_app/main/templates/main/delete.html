@@ -1,0 +1,15 @@
+{% extends 'main/main.html' %}
+{% block content %}
+
+<h3>Delete</h3>
+
+<p>Do you want to delete this task: {{task}}</p>
+
+<a href="{% url 'home' %}">Cancel</a>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" name="Delete">
+</form>
+
+{% endblock %}

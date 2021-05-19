@@ -1,0 +1,53 @@
+{% extends 'main/main.html' %}
+{% load widget_tweaks %}
+{% block content%}
+<h1>HOME PAGE</h1>
+
+
+<div class="columns is-centered">
+    <div class="column is-centered is-5">
+
+        <nav class="panel">
+            <p class="panel-heading has-text-centered">
+                To-Do'
+            </p>
+            <form action="/" method="POST">
+                {% csrf_token %}
+                <div class="panel-block">
+                    {{form.title|add_class:"input"}}
+                    <!-- buraya todo ekleme gelecek -->
+                    <button type="submit" class="button is-prime is-light ml-2" value="Add">Add</button>
+                    <!-- <input type="submit" value="Add" class="button is-prime ml-2"> -->
+                </div>
+            </form>
+
+
+            {% for task in tasks%}
+            <div class="card-content">
+                <div class="columns">
+                    <div class="column is-9">
+                        {{task.title}}
+                        {{task.desc}}
+                    </div>
+
+                    <div class="column is-4">
+                        <a href="{% url 'update' task.title task.id %}"><button
+                                class="button is-info is-light">Update</button></a>
+                        <a href="{% url 'delete' task.title task.id %}"><button
+                                class="button is-danger is-light">Delete</button></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="panel-block">
+                <button class="button is-link is-outlined is-fullwidth">
+                    Reset all filters
+                </button>
+            </div>
+        </nav>
+    </div>
+</div>
+
+
+
+{% endblock %}
