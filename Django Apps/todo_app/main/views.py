@@ -8,7 +8,7 @@ from .forms import TaskForm
 
 
 def homepage(request):
-    tasks = Task.objects.all()
+    tasks = Task.objects.filter(complete=False)
     form = TaskForm()
 
     if request.method == 'POST':

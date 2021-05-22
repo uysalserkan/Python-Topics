@@ -1,12 +1,27 @@
 {% extends 'main/main.html' %}
+{% load widget_tweaks %}
 
 {% block content %}
-<h1>Update Task</h1>
+<div class="columns is-centered pt-2">
+    <div class="column is-centered is-5">
+        <div class="box">
 
-<form action="" method="post">
-    {% csrf_token %}
-    {{form}}
-    <input type="submit" name="Update">
-</form>
+            <form action="" method="post">
+                {% csrf_token %}
 
+                <div class="row pb-2">
+                    Title: {{form.title|add_class:"input is-focused"}}
+                </div>
+                <div class="row pb-2">
+                    {{form.desc|add_class:"textarea is-medium"}}
+                </div>
+                <div class="row pt-2">
+                    Mark Complete: {{form.complete|add_class:""}}
+                    <input class="button is-info is-pulled-right mb-2" type="submit" value="Update">
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

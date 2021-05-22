@@ -2,52 +2,65 @@
 {% load widget_tweaks %}
 {% block content%}
 
-<div class="columns is-centered">
-    <div class="column is-centered is-5">
+<head>
+    <title>
+        ToDo App - uysalserkan
+    </title>
+</head>
 
-        <nav class="panel is-info pt-2">
-            <p class="panel-heading has-text-centered">
-                To-Do'
-            </p>
-            <form action="/" method="POST">
-                {% csrf_token %}
+<body>
+
+    <div class="columns is-centered">
+        <div class="column is-centered is-5">
+
+            <nav class="panel is-info pt-2">
+                <p class="panel-heading has-text-centered">
+                    To-Do'
+                </p>
+                <form action="/" method="POST">
+                    {% csrf_token %}
+                    <div class="panel-block">
+                        {{form.title|add_class:"input"}}
+                        <!-- buraya todo ekleme gelecek -->
+                        <button type="submit" class="button is-prime is-light ml-2" value="Add">Add</button>
+                        <!-- <input type="submit" value="Add" class="button is-prime ml-2"> -->
+                    </div>
+                </form>
+
+
+                {% for task in tasks%}
+                <div class="card-content">
+                    <div class="columns">
+                        <div class="column is-7">
+                            <!-- TODO: https://github.com/uysalserkan/Python-Topics/issues/2 -->
+                            <b> {{task.title}}</b>
+                            <p class="content is-small">
+                                {{task.created}}
+                            </p>
+                        </div>
+
+                        <div class="column is-5">
+                            <a href="{% url 'update' task.title task.id %}"><button
+                                    class="button is-success is-light">Complete</button></a>
+                            <a href="{% url 'update' task.title task.id %}"><button
+                                    class="button is-info is-light">Update</button></a>
+                            <a href="{% url 'delete' task.title task.id %}"><button
+                                    class="button is-danger is-light">Delete</button></a>
+
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
                 <div class="panel-block">
-                    {{form.title|add_class:"input"}}
-                    <!-- buraya todo ekleme gelecek -->
-                    <button type="submit" class="button is-prime is-light ml-2" value="Add">Add</button>
-                    <!-- <input type="submit" value="Add" class="button is-prime ml-2"> -->
+                    <button class="button is-link is-outlined is-fullwidth">
+                        Show Completed
+                    </button>
                 </div>
-            </form>
-
-
-            {% for task in tasks%}
-            <div class="card-content">
-                <div class="columns">
-                    <div class="column is-9">
-                        <!-- 
-                        TODO: STATUS gelecek.  
-                    -->
-                        <b> {{task.title}}</b>
-                    </div>
-
-                    <div class="column is-4">
-                        <a href="{% url 'update' task.title task.id %}"><button
-                                class="button is-info is-light">Update</button></a>
-                        <a href="{% url 'delete' task.title task.id %}"><button
-                                class="button is-danger is-light">Delete</button></a>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-            <!-- <div class="panel-block">
-                <button class="button is-link is-outlined is-fullwidth">
-                    Reset all filters
-                </button> -->
+            </nav>
+        </div>
     </div>
-    </nav>
-</div>
-</div>
 
 
 
-{% endblock %}
+    {% endblock %}
+</body>
