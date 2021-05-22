@@ -61,3 +61,15 @@ def delete_task(request, task_name, task_id):
             "task": task,
         }
     )
+
+
+def completed_task(request):
+    tasks = Task.objects.filter(complete=True)
+
+    return render(
+        request=request,
+        template_name='main/completed.html',
+        context={
+            "tasks": tasks,
+        }
+    )

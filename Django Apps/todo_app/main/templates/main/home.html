@@ -2,12 +2,6 @@
 {% load widget_tweaks %}
 {% block content%}
 
-<head>
-    <title>
-        ToDo App - uysalserkan
-    </title>
-</head>
-
 <body>
 
     <div class="columns is-centered">
@@ -31,7 +25,7 @@
                 {% for task in tasks%}
                 <div class="card-content">
                     <div class="columns">
-                        <div class="column is-7">
+                        <div class="column is-9">
                             <!-- TODO: https://github.com/uysalserkan/Python-Topics/issues/2 -->
                             <b> {{task.title}}</b>
                             <p class="content is-small">
@@ -39,9 +33,10 @@
                             </p>
                         </div>
 
-                        <div class="column is-5">
-                            <a href="{% url 'update' task.title task.id %}"><button
-                                    class="button is-success is-light">Complete</button></a>
+                        <div class="column is-4">
+                            <!-- ? Burası daha sonra yapılabilir, javascript vs.  -->
+                            <!-- <a href="{% url 'update' task.title task.id %}"><button
+                                    class="button is-success is-light">Complete</button></a> -->
                             <a href="{% url 'update' task.title task.id %}"><button
                                     class="button is-info is-light">Update</button></a>
                             <a href="{% url 'delete' task.title task.id %}"><button
@@ -51,11 +46,13 @@
                     </div>
                 </div>
                 {% endfor %}
-                <div class="panel-block">
-                    <button class="button is-link is-outlined is-fullwidth">
-                        Show Completed
-                    </button>
-                </div>
+                <a href="{% url 'completed' %}">
+                    <div class="panel-block">
+                        <button class="button is-link is-outlined is-fullwidth">
+                            Show Completed
+                        </button>
+                    </div>
+                </a>
             </nav>
         </div>
     </div>

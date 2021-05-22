@@ -7,4 +7,5 @@ urlpatterns = [
          view=views.update_task, name='update'),
     path('delete/<str:task_name>/<str:task_id>',
          view=views.delete_task, name='delete'),
+    path('completed/', view=views.completed_task, name="completed"),
 ]

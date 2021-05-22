@@ -1,0 +1,23 @@
+{% extends 'main/main.html' %}
+{% block content %}
+
+<div class="columns is-centered">
+    <div class="column is-centered is-5">
+        {% for task in tasks%}
+        <div class="card mt-3">
+            <div class="card-content">
+                <p class="title">
+                    {{task.title}}
+                </p>
+                <p class="subtitle">
+                    {{task.desc}}
+                </p>
+                <p class="content is-small">
+                    {{task.created}}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
