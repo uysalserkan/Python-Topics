@@ -1,0 +1,13 @@
+{% extends 'src/main.html' %}
+<!-- {% load crispy_forms_tags %} -->
+
+
+{% block content %}
+<form method="POST" , autocomplete="off" action="">
+
+    {% csrf_token %}
+    {{form}}
+
+</form>
+
+{% endblock content %}
