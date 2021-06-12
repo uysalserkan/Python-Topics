@@ -41,10 +41,10 @@ def employee_form(request, id=0):
         if form.is_valid:
             form.save()
 
-        return redirect('list/')
+        return redirect('/list/')
 
 
 def employee_delete(request, id):
     emp = Employee.objects.get(pk=id)
     emp.delete()
-    return redirect('list/')
+    return redirect('/list/')
