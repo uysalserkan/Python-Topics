@@ -1,12 +1,23 @@
 {% extends 'src/main.html' %}
-<!-- {% load crispy_forms_tags %} -->
+{% load crispy_forms_tags %}
 
 
 {% block content %}
 <form method="POST" , autocomplete="off" action="">
 
     {% csrf_token %}
-    {{form}}
+    <!-- {{form|crispy}} -->
+    {{form.fullname|as_crispy_field}}
+    {{form.mobile|as_crispy_field}}
+    <div class="row">
+        <div class="col-md-4">
+            {{form.emp_code|as_crispy_field}}
+        </div>
+        <div class="col-md-8">
+            {{form.position|as_crispy_field}}
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success"><i class="fa fa-database"></i>  Save</button>
 
 </form>
 

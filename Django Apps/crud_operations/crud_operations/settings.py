@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'crispy_forms',  # bootstrap için form düzenleme gibi bişi mi? (Control)
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

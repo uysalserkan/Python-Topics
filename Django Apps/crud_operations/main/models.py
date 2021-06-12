@@ -8,6 +8,9 @@ class Positions(models.Model):
 
     title = models.CharField(max_length=50, null=False)
 
+    def __str__(self) -> str:
+        return self.title
+
 
 class Employee(models.Model):
     """
@@ -17,3 +20,6 @@ class Employee(models.Model):
     emp_code = models.CharField(max_length=3, null=False)
     mobile = models.CharField(max_length=15)
     position = models.ForeignKey(Positions, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return self.fullname
