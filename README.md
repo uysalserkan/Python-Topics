@@ -23,7 +23,7 @@ docker pull uysalserkan/django-todoapp
 docker run --name mainapp -d -p 8000:8000 uysalserkan/django-todoapp
 ```
 
-## [Django](Django%20Apps) > [ToDo App](/Django%20Apps/crud_operations)
+## [Django](Django%20Apps) > [CRUD Operations](/Django%20Apps/crud_operations)
 
 https://user-images.githubusercontent.com/24881389/121780914-207f6c80-cbab-11eb-9338-8b02012b1edd.mp4
 
