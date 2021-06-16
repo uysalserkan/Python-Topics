@@ -5,7 +5,80 @@ from rest_framework.decorators import api_view
 from main.models import Makale
 from main.api.serializers import MakaleSerializer
 
+# importing APIView
+from rest_framework.views import APIView
 
+# get instance module
+from rest_framework.generics import get_object_or_404
+
+# Class based
+
+
+class MakaleListCreateAPIView(APIView):
+    """
+    Aşağıda oluşturmuş olduğumuz fonksiyonu class olarak yazıyoruz.
+    """
+
+    def get(self, request):
+        makaleler = Makale.objects.filter(aktif=True)
+        serialized = MakaleSerializer(makaleler, many=True)
+        return Response(serialized.data)
+
+    def post(self, request):
+        serialized = MakaleSerializer(
+            data=request.data
+        )  # buradaki data işaretlemesini unutma xd
+        if serialized.is_valid():
+            serialized.save()
+            return Response(serialized.data, status=status.HTTP_201_CREATED)
+
+        return Response(
+            serialized.errors,
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+
+class MakaleDetailAPIView(APIView):
+    """
+    Aşağıda oluşturduğumuz fonksiyonun class hali.
+    """
+
+    def get_object(self, id):
+        return get_object_or_404(Makale, pk=id)
+
+    def get(self, request, id):
+        makale = self.get_object(id=id)
+        serialized = MakaleSerializer(makale)
+        return Response(serialized.data)
+
+    def put(self, request, id):
+        makale = self.get_object(id=id)
+        serialized = MakaleSerializer(makale, data=request.data)
+        if serialized.is_valid():
+            serialized.save()
+            return Response(serialized.data)
+
+        return Response(
+            serialized.errors,  # update yaparken karşılaştığımız hatanın neden kaynaklandığını söyleyecek.
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    def delete(self, request, id):
+        makale = self.get_object(pk=id)
+        makale.delete()
+
+        return Response(
+            {
+                "errors": {
+                    "code": 204,
+                    "message": f"({id}) ID numarasına sahip olan makale silindi.. [Class]",
+                }
+            },
+            status=status.HTTP_204_NO_CONTENT,
+        )
+
+
+# Function Based Methods
 @api_view(["GET", "POST"])
 def makale_list_create_api_view(request):
     """
