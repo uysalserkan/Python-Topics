@@ -1,11 +1,58 @@
 from rest_framework import serializers
 from main.models import Makale
 
+from django.utils.timesince import timesince
+from datetime import date, datetime, timezone
+
 # DB üzerinden gelecek olan verileri python verilerine çevirip kolayca kullanabilme
 # imkanı sunacak.
 
 
-class MakaleSerializer(serializers.Serializer):
+class MakaleSerializer(serializers.ModelSerializer):
+    """
+    ModelSerializer ile daha kolay ve hızlı bir biçimde serializer'ımızı oluşturabiliriz.
+    """
+
+    time_pub = (
+        serializers.SerializerMethodField()
+    )  # Yaratılma tarihini DB üzerinden gelmeden buradan çıkarım yaparak yeni bir attribute oluşturup gösterebiliriz.
+
+    class Meta:
+        """
+        Formlar gibi hangi alanları kullanacaz hangilerini kullanmayacağımızı belirtebilriz bu class içerisinde.
+        """
+
+        model = Makale
+        fields = "__all__"
+        read_only_fields = ["id", "yaratilma_tarihi", "güncellenme_tarihi"]
+
+    def get_time_pub(self, object):
+        """
+        Object Validation.
+        Yaratılma tarihinin üzerinden ne kadar zaman geçtiğini hesaplayıp json içerisinde
+        yeni bir attribute olarak gösterebildiğimiz fonksiyon.
+        """
+        now_date = datetime.now(timezone.utc)
+        if object.aktif:
+            pub_date = object.yaratilma_tarihi
+
+            return timesince(pub_date, now_date)
+        else:
+            return "Makale aktif değil, lütfen ilk önce makaleyi aktif ediniz."
+
+    def validate_yayim_tarihi(self, pub_date):
+        """
+        Field Validation.
+        Ileri bir yayımlanma tarihini engelliyoruz.
+        """
+        if pub_date > date.today():
+            raise serializers.ValidationError(
+                "Yayımlanma tarihi ileri bir tarih olamaz."
+            )
+        return pub_date
+
+
+class oldMakaleSerializer(serializers.Serializer):
     """
     DB üzerinden gelebilecek tüm alanları işaretliyoruz.
     """
