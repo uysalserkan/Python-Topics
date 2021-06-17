@@ -3,7 +3,14 @@ from main.api import views as api_views
 
 urlpatterns = [
     path(
-        "makaleler", api_views.MakaleListCreateAPIView.as_view(), name="makale-listesi"
+        "yazarlar/",
+        api_views.AuthorsListCreateAPIView.as_view(),
+        name="yazarlar-listesi",
+    ),
+    path(
+        "makaleler/",
+        api_views.MakaleListCreateAPIView.as_view(),
+        name="makale-listesi",
     ),
     path(
         "makaleler/<int:id>",

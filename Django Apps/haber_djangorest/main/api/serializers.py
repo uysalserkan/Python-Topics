@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from main.models import Makale
+from main.models import Authors, Makale
 
 from django.utils.timesince import timesince
 from datetime import date, datetime, timezone
@@ -12,6 +12,12 @@ class MakaleSerializer(serializers.ModelSerializer):
     """
     ModelSerializer ile daha kolay ve hızlı bir biçimde serializer'ımızı oluşturabiliriz.
     """
+
+    # JSON verimiz içerisinde yazarların bilgilerini bastırıyoruz.
+
+    # yazar = (
+    #     AuthorSerializer()
+    # )
 
     time_pub = (
         serializers.SerializerMethodField()
@@ -50,6 +56,26 @@ class MakaleSerializer(serializers.ModelSerializer):
                 "Yayımlanma tarihi ileri bir tarih olamaz."
             )
         return pub_date
+
+
+class AuthorSerializer(serializers.ModelSerializer):
+    """
+    Yazarlarımızı bu serializer ile hızlı bir şekilde listeleyebilir ve gösterebiliriz.
+    """
+
+    # makaleler adında yeni bir alan oluşturuyoruz ve bu alanda yazarlarımızın makalelerini gösteriyoruz.
+    # makaleler = MakaleSerializer(many=True, read_only=True)
+    # burada ise makalelerin linkini gösteriyoruz..
+    makaleler = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name="makale-detail",  # burada girdiğimiz view_name url de bulunan name'dir ve linkleme işlemi gerçekleştirecektir..
+        lookup_field="id",  # bu alan ile her bir id ile oluşturulan makaleleri linkliyoruz. Bu olmadan hata veriyor..
+    )
+
+    class Meta:
+        model = Authors
+        fields = "__all__"
 
 
 class oldMakaleSerializer(serializers.Serializer):

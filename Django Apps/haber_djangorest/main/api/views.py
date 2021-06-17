@@ -2,8 +2,8 @@ from django.http import response
 from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from main.models import Makale
-from main.api.serializers import MakaleSerializer
+from main.models import Makale, Authors
+from main.api.serializers import MakaleSerializer, AuthorSerializer
 
 # importing APIView
 from rest_framework.views import APIView
@@ -14,6 +14,36 @@ from rest_framework.generics import get_object_or_404
 # Class based
 
 
+class AuthorsListCreateAPIView(APIView):
+    """
+    Yazarları gösterebileceğimiz ve yeni yazar oluşturabileceğimiz alanı yaratıyoruz.
+    """
+
+    def get(self, request):
+        authors = Authors.objects.all()
+
+        # context request ile linkleme işleminde karşılaştığımız hatayı çözüyoruz..
+        serialized = AuthorSerializer(
+            authors,
+            many=True,
+            context={"request": request},
+        )
+        return Response(serialized.data)
+
+    def post(self, request):
+        serialized = AuthorSerializer(data=request.data)
+        if serialized.is_valid():
+            serialized.save()
+            return Response(
+                serialized.data,
+                status=status.HTTP_201_CREATED,
+            )
+        return Response(
+            serialized.errors,
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+
 class MakaleListCreateAPIView(APIView):
     """
     Aşağıda oluşturmuş olduğumuz fonksiyonu class olarak yazıyoruz.
@@ -21,7 +51,10 @@ class MakaleListCreateAPIView(APIView):
 
     def get(self, request):
         makaleler = Makale.objects.filter(aktif=True)
-        serialized = MakaleSerializer(makaleler, many=True)
+        serialized = MakaleSerializer(
+            makaleler,
+            many=True,
+        )
         return Response(serialized.data)
 
     def post(self, request):
@@ -30,7 +63,10 @@ class MakaleListCreateAPIView(APIView):
         )  # buradaki data işaretlemesini unutma xd
         if serialized.is_valid():
             serialized.save()
-            return Response(serialized.data, status=status.HTTP_201_CREATED)
+            return Response(
+                serialized.data,
+                status=status.HTTP_201_CREATED,
+            )
 
         return Response(
             serialized.errors,
@@ -97,7 +133,10 @@ def makale_list_create_api_view(request):
         serialized = MakaleSerializer(data=request.data)
         if serialized.is_valid():
             serialized.save()
-            return Response(serialized.data, status=status.HTTP_201_CREATED)
+            return Response(
+                serialized.data,
+                status=status.HTTP_201_CREATED,
+            )
         return response(status=status.HTTP_400_BAD_REQUEST)
 
 

@@ -3,8 +3,26 @@ from django.db import models
 # Create your models here.
 
 
+class Authors(models.Model):
+    """
+    Makaleleri yazan yazarların DB üzerinde bulunacak modelleri.
+    """
+
+    isim = models.CharField(max_length=120, null=False)
+    soyisim = models.CharField(max_length=120, null=False)
+    biyografi = models.TextField(null=True, blank=True)
+
+    def __str__(self) -> str:
+        return f"{self.isim}_{self.soyisim}"
+
+    class Meta:
+        verbose_name_plural = "Yazarlar"
+
+
 class Makale(models.Model):
-    yazar = models.CharField(max_length=150)
+    yazar = models.ForeignKey(
+        Authors, on_delete=models.CASCADE, related_name="makaleler"
+    )
     baslik = models.CharField(max_length=150)
     aciklama = models.CharField(max_length=150)
     metin = models.TextField()
