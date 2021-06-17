@@ -46,3 +46,23 @@ class MakaleSerializer(serializers.Serializer):
 
         instance.save()
         return instance
+
+    def validate(self, data):
+        """
+        object seviyesinde kontrol yapıyoruz.
+        Tüm data üzerinde kontrol işlemlerini gerçekleştiriyoruz.
+        """
+        if data["baslik"] == data["aciklama"]:
+            raise serializers.ValidationError(
+                "Baslik ve açıklama aynı olamaz. Lütfen kontrol edip tekrar giriniz.."
+            )
+
+    def validate_baslik(self, value):
+        """
+        field seviyesinde kotrol işlemi gerçekleştiriyoruz.
+        """
+        if len(value) < 15:
+            raise serializers.ValidationError(
+                f"Baslik için en az 25 karakter girmeniz gerekiyor. ({25-len(value)} karakter daha girmelisiniz)"
+            )
+        return value
