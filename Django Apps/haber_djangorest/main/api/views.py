@@ -100,7 +100,7 @@ class MakaleDetailAPIView(APIView):
         )
 
     def delete(self, request, id):
-        makale = self.get_object(pk=id)
+        makale = self.get_object(id=id)
         makale.delete()
 
         return Response(
