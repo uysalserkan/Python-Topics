@@ -27,3 +27,8 @@ docker run --name mainapp -d -p 8000:8000 uysalserkan/django-todoapp
 
 https://user-images.githubusercontent.com/24881389/121780914-207f6c80-cbab-11eb-9338-8b02012b1edd.mp4
 
+## [Django](Django%20Apps) > [Haberler (Django RestAPI)](/Django%20Apps/haber_djangorest)
+
+https://user-images.githubusercontent.com/24881389/122435914-155c8000-cfa1-11eb-9b9d-3e87ddcd9f77.mp4
+
+
