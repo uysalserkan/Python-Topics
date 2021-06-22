@@ -107,3 +107,4 @@ venv.bak/
 # Django apps
 Django Apps/Customer_Manage/main/migrations/*
 Django Apps/Customer_Manage/main/static/*
+secrets.py
