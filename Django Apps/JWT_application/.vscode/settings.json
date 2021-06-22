@@ -1,0 +1,7 @@
+{
+    "python.linting.banditEnabled": false,
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.pythonPath": "/home/red/Desktop/django_rest/bin/python3.8",
+    "python.formatting.provider": "autopep8"
+}
