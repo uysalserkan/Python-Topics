@@ -5,8 +5,10 @@ from .serializers import UserSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import exceptions
-
+import datetime
 from .models import User
+import jwt
+from .secrets import SECRETS
 # Create your views here.
 
 # API Viewlarını yaratıyoruz..
@@ -49,6 +51,28 @@ class LoginView(APIView):
             raise exceptions.AuthenticationFailed(
                 "Your password is incorrect. Please check and try again..")
 
-        return Response({
-            'message': 'Successfully logged in.'
-        })
+        payload = {
+            'id': user.id,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+            # 60 dakika boyunca token aktif olacak daha sonra pasif hale gelecektir.
+
+            'iat': datetime.datetime.utcnow()
+            # Token'in oluşturulma zamanı
+        }
+
+        token = jwt.encode(
+            payload=payload,
+            key=SECRETS['JWT_SECRET_KEY'],
+            algorithm='HS256'
+        )
+
+        resp = Response()
+
+        # httponly front end token i görememesi için.
+        resp.set_cookie(key='jwt', value=token, httponly=True)
+
+        resp.data = {
+            'token': token
+        }
+
+        return resp
