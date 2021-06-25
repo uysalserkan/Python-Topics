@@ -31,4 +31,8 @@ https://user-images.githubusercontent.com/24881389/121780914-207f6c80-cbab-11eb-
 
 https://user-images.githubusercontent.com/24881389/122435914-155c8000-cfa1-11eb-9b9d-3e87ddcd9f77.mp4
 
+## [Django](Django%20Apps) > [JWT Application](/Django%20Apps/JWT_application)
+
+https://user-images.githubusercontent.com/24881389/123429851-1fe5cd80-d5d0-11eb-91aa-d2ca5a23298e.mp4
+
 
